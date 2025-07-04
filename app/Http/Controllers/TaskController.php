@@ -8,7 +8,7 @@ use App\Models\Person;
 
 class TaskController extends Controller
 {
-    //
+    // Backend laravel apis
     public function index()
     {
         return Task::with('people')->get();
@@ -44,7 +44,9 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $task->delete();
-        return response()->json(null, 204);
+        return response()->json([
+            'message' => 'Tarea eliminada correctamente.'
+            ], 200);
     }
 
     public function assign_task(Request $request, $task_id)
@@ -56,12 +58,12 @@ class TaskController extends Controller
         return response()->json(['message' => 'Persona asignada']);
     }
 
-    public function unassign_task(Request $request, $task_id)
+    public function unassign(Request $request, $taskId)
     {
-        $task = Task::findOrFail($task_id);
-        $person_id = $request->input('person_id');
-        $task->people()->detach($person_id);
-
+        $personId = $request->person_id;
+        $task = Task::findOrFail($taskId);
+        $task->people()->detach($personId); // elimina la relación de la tabla pivote
         return response()->json(['message' => 'Persona desasignada']);
     }
+
 }

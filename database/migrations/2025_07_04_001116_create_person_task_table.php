@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('person_task', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained()->onDelete('cascade');
-            $table->foreingId('task_id')->constrained()->onDelete('cascade');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade'); //referencia a la tabla people
+            $table->foreignId('task_id')->constrained()->onDelete('cascade'); //referencia a la tabla task
             $table->timestamps();
-        });
+        }); 
     }
 
     /**

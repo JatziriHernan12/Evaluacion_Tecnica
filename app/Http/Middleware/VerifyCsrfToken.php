@@ -12,6 +12,8 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        '/tasks',
+        '/tasks/*',
+        '/personas', //para omitir el token al hacer las pruebas en postman
     ];
 }
